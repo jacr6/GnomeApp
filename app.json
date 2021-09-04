@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "mainSite",
+    "slug": "mainSite",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "mainSite"
+}
