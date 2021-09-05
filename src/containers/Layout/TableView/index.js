@@ -7,95 +7,44 @@ import {
     TableView,
 } from 'react-native-tableview-simple';
 
-const CellVariant = (props) => (
+ 
+const SingleData = (props) => (
     <Cell
         {...props}
         cellContentView={
             <View
                 style={{ alignItems: 'center', flexDirection: 'row', flex: 1, paddingVertical: 10 }}
             >
-                <Avatar
+                  {props.avatar&&( <Avatar
                     source={{
-                      uri: props.data.thumbnail,
-                    }}/>
+                      uri: props.thumbnail,
+                    }}/>)}
                 <Text
                     allowFontScaling
                     numberOfLines={1}
                     style={{ flex: 1, fontSize: 20 }}
                 >
-                    {props.data.name}
-                </Text>
-                <Text
-                    allowFontScaling
-                    numberOfLines={1}
-                    style={{ flex: 1, fontSize: 20 }}
-                >
-                   age: {props.data.age}
-                </Text>
-                <Text
-                    allowFontScaling
-                    numberOfLines={1}
-                    style={{ flex: 1, fontSize: 20 }}
-                >
-                   weight: {props.data.weight}
-                </Text>
-                <Text
-                    allowFontScaling
-                    numberOfLines={1}
-                    style={{ flex: 1, fontSize: 20 }}
-                >
-                   height: {props.data.height}
-                </Text>
-                <Text
-                    allowFontScaling
-                    numberOfLines={1}
-                    style={{ flex: 1, fontSize: 20 }}
-                >
-                   Hair Color: {props.data.hair_color}
+                   {props.title} {props.data}
                 </Text>
             </View>
         }
     />
-);
+); 
+ 
 
 
-const Friends = (props) => (
+const MasterData = (props) => (
     <Cell
         {...props}
         cellContentView={
             <View
                 style={{ alignItems: 'center', flexDirection: 'row', flex: 1, paddingVertical: 10 }}
             >
-                <Text  allowFontScaling
-                    numberOfLines={1}
-                    style={{ flex: 1, fontSize: 20 }}
-                    >Friends:</Text>  {props.data.friends.map((item)=>{
-                    return <Text
-                    allowFontScaling
-                    numberOfLines={1}
-                    style={{ flex: 1, fontSize: 20 }}
-                >
-                  {item}
-                </Text>
-                })}
-                
-            </View>
-        }
-    />
-);
-
-
-const Professions = (props) => (
-    <Cell
-        {...props}
-        cellContentView={
-            <View
-                style={{ alignItems: 'center', flexDirection: 'row', flex: 1, paddingVertical: 10 }}
-            >
+               
                <Text  allowFontScaling
                     numberOfLines={1}
                     style={{ flex: 1, fontSize: 20 }}
-                    >Professions:</Text>  {props.data.professions.map((prof)=>{
+                    >{props.title}</Text>  {props.data.map((prof)=>{
                     return <Text
                     allowFontScaling
                     numberOfLines={1}
@@ -113,9 +62,13 @@ export const App = (props) => {
 
     return <TableView>
         <Section>
-            <CellVariant {...props}  />
-            <Professions {...props}  />
-            <Friends {...props}  />
+            <SingleData title="Name:" data={props.data.name} avatar={true} thumbnail={props.data.thumbnail}  />
+            <SingleData title="Age:" data={props.data.age}   />
+            <SingleData title="Height:" data={props.data.height}   />
+            <SingleData title="Weight:" data={props.data.weight}   />
+            <SingleData title="Hair Color:" data={props.data.hair_color}   />             
+            <MasterData title="Professions:" data={props.data.professions}  />
+            <MasterData title="Friends:" data={props.data.friends}  />
         </Section>
     </TableView>
 }
