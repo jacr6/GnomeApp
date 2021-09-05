@@ -48,10 +48,10 @@ export const Example = () => {
 
 export default () => {
   return (
-    <NativeBaseProvider>
+ 
       <Center flex={1}>
         <Example />
       </Center>
-    </NativeBaseProvider>
+    
   )
 }

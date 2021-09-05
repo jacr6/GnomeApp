@@ -20,9 +20,10 @@ import {
 } from 'native-base';
 import FooterScreen from '../Footer'
 import ContentScreen from '../Content';
-import useGnomeApi from '../../../hooks/useGnomeApi'
-import { StoreContext } from '../../../context';
- 
+import { StoreContext, Data, setData } from '../../../context';
+import Dummydata from '../../../com/dummyData.json'
+
+const gnomeData = Data && Data.data && Data.data.Brastlewark ? Data.data.Brastlewark : Dummydata.Brastlewark
 
 
 const Drawer = createDrawerNavigator();
@@ -37,16 +38,16 @@ function Component(props) {
   return (
     <>
       <HStack height={"90%"}>
-        <ContentScreen {...props} /> 
+        <ContentScreen {...props} />
       </HStack>
       <FooterScreen />
 
     </>
   );
 }
- 
-function CustomDrawerContent(props) { 
-  const {data} = props
+
+function CustomDrawerContent(props) {
+  const { data } = props
   console.log("CustomDrawerContent props: ", props)
   return (
     <DrawerContentScrollView
@@ -71,9 +72,9 @@ function CustomDrawerContent(props) {
                 }}
               >
                 <HStack space={7} alignItems="center">
-                 {( <Avatar
+                  {(<Avatar
                     source={{
-                      uri: data&&data[index]&&data[index].thumbnail,
+                      uri: data && data[index] && data[index].thumbnail,
                     }}
                   />)}
                   <Text fontWeight={500} color={index === props.state.index ? 'primary.500' : 'gray.700'}>
@@ -106,33 +107,41 @@ function CustomDrawerContent(props) {
     </DrawerContentScrollView>
   );
 }
+
+const Render = () => { return Data.gnome && (<Component data={Data.gnome} />) }
+
 function MyDrawer() {
   const context = React.useContext(StoreContext);
   const { first } = context.first;
   const { dataLength, setDataLength } = context.dataLength;
   const { last } = context.last;
-  const { gnomeData, isLoadingComplete } = useGnomeApi()
-  console.log("gnomeData: ", gnomeData)
-   
-  if (!isLoadingComplete && !gnomeData || gnomeData && !gnomeData.Brastlewark) {
+
+
+  if (!gnomeData || gnomeData && !gnomeData[0]) {
     return null
   }
 
 
-  const data = gnomeData.Brastlewark.filter((x) => x.id < last).filter(x => x.id >= first)
+  React.useEffect(() => {
 
-  setDataLength(gnomeData.Brastlewark.length)
-  console.log("dataLength: ", dataLength)
+    !dataLength && setDataLength(gnomeData.length)
 
-  return gnomeData && gnomeData.Brastlewark && (
+
+  }, [])
+
+
+
+
+
+  return (
     <Box safeArea flex={1} >
       <Drawer.Navigator
         height={"100%"}
-        drawerContent={(props) => <CustomDrawerContent {...{data}} {...props} />}
+        drawerContent={(props) => <CustomDrawerContent {...{ data: gnomeData.filter((x) => x.id < last).filter(x => x.id >= first) }} {...props} />}
       >
-        {data.map((gnome) => {
-          
-          const Render = () => <Component data={gnome} />
+        {gnomeData.filter((x) => x.id < last).filter(x => x.id >= first).map((gnome) => {
+          setData("gnome", gnome)
+
           return <Drawer.Screen name={gnome.name} params={gnome} component={Render} />
         })}
       </Drawer.Navigator>
@@ -142,9 +151,9 @@ function MyDrawer() {
 export default function App() {
   return (
     <NavigationContainer>
-      <NativeBaseProvider>
-        <MyDrawer />
-      </NativeBaseProvider>
+
+      <MyDrawer />
+
     </NavigationContainer>
   );
 }

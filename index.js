@@ -1,9 +1,29 @@
 import 'react-native-gesture-handler';
 import { registerRootComponent } from 'expo';
-
+import { gnomeCom } from './src/com/gnomeCom'
+import { setData } from './src/context'
 import App from './App';
+// registerRootComponent(App);
+//  (async () => { 
+     
+//     try {
+//         const response =  await gnomeCom() 
+//         const { state, data } = response
+//         // console.log("RESPONSE: ", response)
+//         if (state) {
+//             setData("data", data)
+           
+//         }
+        
+//     } catch (error) {
+        
+//     }finally{
 
-// registerRootComponent calls AppRegistry.registerComponent('main', () => App);
-// It also ensures that whether you load the app in Expo Go or in a native build,
-// the environment is set up appropriately
+//         registerRootComponent(App);       
+//     }
+    
+   
+
+// })()
+
 registerRootComponent(App);

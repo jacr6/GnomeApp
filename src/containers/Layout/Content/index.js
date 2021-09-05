@@ -11,8 +11,8 @@ export default function Content(props) {
 
 
   return (
-    <NativeBaseProvider>
+     
       <TableView {...props}/>
-    </NativeBaseProvider>
+   
   );
 }

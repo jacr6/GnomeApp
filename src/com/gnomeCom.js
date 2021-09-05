@@ -12,7 +12,7 @@ export async function gnomeCom() {
      
       let response =  { state: true, data: result }
 
-      console.log("DATA:", response)
+      // console.log("DATA:", response)
       return response 
     })
     .catch(error => error)

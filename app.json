@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "expochallenge",
-    "slug": "expochallenge",
+    "name": "gnomeChallenge",
+    "slug": "gnomeChallenge",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/img/icon.png",

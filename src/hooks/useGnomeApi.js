@@ -12,9 +12,8 @@ export default function useGnomeApi() {
     async function fetchData() {
       try {
         const response = await gnomeCom()
-        console.log("response: ", response)
          
-        if (response.state) {
+        if (response&&response.state) {
           setGnomeData(response.data)
         }
         setLoadingComplete(true);

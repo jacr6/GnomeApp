@@ -36,10 +36,10 @@ export const Example = () => {
 
 export default () => {
   return (
-    <NativeBaseProvider>
+    
       <Center  >
         <Example />
       </Center>
-    </NativeBaseProvider>
+   
   )
 }

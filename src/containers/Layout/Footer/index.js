@@ -23,7 +23,7 @@ export default function App() {
   const { selected, setSelected } = context.selected;
 
   return (
-    <NativeBaseProvider>
+  
 
       <HStack bg="#9d8331" alignItems="center" safeAreaBottom shadow={6}>
         <Pressable
@@ -117,6 +117,6 @@ export default function App() {
         </Pressable>
       </HStack>
 
-    </NativeBaseProvider>
+   
   );
 }
