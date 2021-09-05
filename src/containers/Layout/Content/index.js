@@ -3,16 +3,16 @@ import React from 'react';
 import {
   NativeBaseProvider,
 } from 'native-base';
-import { StoreContext } from '../../../context'; 
-import * as Screens from '../screens'
+
+import TableView from '../TableView'
+
+export default function Content(props) {
+  console.log("Content props: ", props)
 
 
-export default function App() { 
-  const context = React.useContext(StoreContext); 
-  
   return (
     <NativeBaseProvider>
-      <Screens />
+      <TableView {...props}/>
     </NativeBaseProvider>
   );
 }

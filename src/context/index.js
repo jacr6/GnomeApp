@@ -20,9 +20,21 @@ export const setData = (key, value) => {
 
 
 export const StoreProvider =  ({ Children }) => {
+    const [selected, setSelected] = React.useState(0);
     const [open, setOpen] = useState(false);
+    const [first, setFirst] = useState(1);
+    const [step, setStep] = useState(20);
+    const [last, setLast] = useState(first+step);
+    const [dataLength, setDataLength] = useState(0);
+    const [gnomeData, setGnomeData] = useState();
     const global = {
         open: { open, setOpen },
+        step: { step, setStep },
+        first: { first, setFirst },
+        dataLength:{dataLength, setDataLength},
+        last:{last, setLast},
+        selected:{selected, setSelected},
+        gnomeData:{gnomeData, setGnomeData}
     };
   
     return (

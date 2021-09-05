@@ -14,88 +14,109 @@ import { StoreContext } from '../../../context';
 
 
 export default function App() {
-  const [selected, setSelected] = React.useState(1);
+
   const context = React.useContext(StoreContext);
-  const { open, setOpen } = context.open;
+  const { step, setStep } = context.step;
+  const { first, setFirst } = context.first;
+  const { last, setLast } = context.last;
+  const { dataLength, setDataLength } = context.dataLength;
+  const { selected, setSelected } = context.selected;
 
   return (
     <NativeBaseProvider>
-      <Box flex={1} bg="white" safeAreaTop>
-        <Center flex={1}>
-        </Center>
-        <HStack bg="#9d8331" alignItems="center" safeAreaBottom shadow={6}>
-          <Pressable
 
-            opacity={selected === 0 ? 1 : 0.5}
-            py={2}
-            flex={1}
-            onPress={() => setSelected(0)}
-          >
-            <Center>
-              <Icon
-                mb={1}
-                as={<MaterialCommunityIcons name="heart" />}
-                color="white"
-                size="xs"
-              />
+      <HStack bg="#9d8331" alignItems="center" safeAreaBottom shadow={6}>
+        <Pressable
 
-              <Text color="white" fontSize={14}>Billetera</Text>
-            </Center>
-          </Pressable>
-          <Pressable
+          opacity={selected === 0 ? 1 : 0.5}
+          py={2}
+          flex={1}
+          onPress={() => {
+            setFirst(1)
+            setLast(step)
+            setSelected(0)
+          }}
+        >
+          <Center>
+            <Icon
+              mb={1}
+              as={<MaterialCommunityIcons name="skip-backward" />}
+              color="white"
+              size="xs"
+            />
 
-            opacity={selected === 1 ? 1 : 0.5}
-            py={2}
-            flex={1}
-            onPress={() => setSelected(1)}
-          >
-            <Center>
-              <Icon
-                mb={1}
-                as={<MaterialCommunityIcons name="music-note" />}
-                color="white"
-                size="xs"
-              />
+            <Text color="white" fontSize={14}>First</Text>
+          </Center>
+        </Pressable>
+        <Pressable
 
-              <Text color="white" fontSize={14}>Espacios</Text>
-            </Center>
-          </Pressable>
-          <Pressable
-            opacity={selected === 2 ? 1 : 0.6}
-            py={2}
-            flex={1}
-            onPress={() => setSelected(2)}
-          >
-            <Center>
-              <Icon
-                mb={1}
-                as={<MaterialIcons name="location-pin" />}
-                color="white"
-                size="xs"
-              />
+          opacity={selected === 1 ? 1 : 0.5}
+          py={2}
+          flex={1}
+          onPress={() => {
 
-              <Text color="white" fontSize={14}>Lugares</Text>
-            </Center>
-          </Pressable>
-          <Pressable
+            first > 1 && setFirst(first - step)
+            first > 1 && setLast(last - step)
+            setSelected(1)
+          }}
+        >
+          <Center>
+            <Icon
+              mb={1}
+              as={<MaterialCommunityIcons name="skip-previous" />}
+              color="white"
+              size="xs"
+            />
 
-            opacity={selected === 3 ? 1 : 0.5}
-            py={2}
-            flex={1}
-            onPress={() => setSelected(3)}
-          >
-            <Center>
-              <Icon
-                mb={1}
-                as={<MaterialCommunityIcons name="newspaper" />}
-                color="white"
-                size="xs"
-              />
-              <Text color="white" fontSize={14}>Cupones</Text>
-            </Center>
-          </Pressable>
-        </HStack>
-      </Box>
+            <Text color="white" fontSize={14}>Previous {first}</Text>
+          </Center>
+        </Pressable>
+        <Pressable
+          opacity={selected === 2 ? 1 : 0.5}
+          py={2}
+          flex={1}
+          onPress={() => {
+
+            last < dataLength - step && setFirst(first + step)
+            last < dataLength - step && setLast(last +  step)
+            setSelected(2)
+          }}
+        >
+          <Center>
+            <Icon
+              mb={1}
+              as={<MaterialIcons name="skip-next" />}
+              color="white"
+              size="xs"
+            />
+
+            <Text color="white" fontSize={14}>Next {last}</Text>
+          </Center>
+        </Pressable>
+        <Pressable
+
+          opacity={selected === 3 ? 1 : 0.5}
+          py={2}
+          flex={1}
+          onPress={() => {
+
+            setFirst(dataLength - step)
+            setLast(dataLength)
+            setSelected(3)
+          }}
+        >
+          <Center>
+            <Icon
+              mb={1}
+              as={<MaterialCommunityIcons name="skip-forward" />}
+              color="white"
+              size="xs"
+            />
+            <Text color="white" fontSize={14}>Last</Text>
+          </Center>
+        </Pressable>
+      </HStack>
+
     </NativeBaseProvider>
   );
 }
